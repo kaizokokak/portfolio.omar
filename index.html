@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Adam Omar — Aspiring UI/UX Designer from Zamboanga Del Sur, Philippines. Specializing in short-form content editing, motion graphics, and retention-focused video production.">
+    <meta name="theme-color" content="#EDEAE4">
+    <title>Adam Omar — Aspiring UI/UX Designer</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preload" href="pogi.png" as="image">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="5" />
+            <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" style="display:none">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    </button>
+
+    <div class="layout">
+
+        <!-- LEFT -->
+        <div class="left-col">
+
+            <div class="card profile-card anim-card" style="--delay: 0s">
+                <div class="avatar">
+                    <img src="pogi.png" alt="Adam Omar" width="96" height="96" loading="eager" decoding="async">
+                </div>
+                <div class="profile-name">
+                    Adam Omar
+                    <span class="badge" title="Verified">
+                        <svg class="verified-icon" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true" width="22" height="22">
+                            <path
+                                d="M22 11L19.56 8.22L19.9 4.52L16.29 3.7L14.4 0.5L11 1.96L7.6 0.5L5.71 3.7L2.1 4.52L2.44 8.22L0 11L2.44 13.78L2.1 17.48L5.71 18.3L7.6 21.5L11 20.04L14.4 21.5L16.29 18.3L19.9 17.48L19.56 13.78L22 11ZM9.09 15.55L5.29 11.75L6.7 10.34L9.09 12.73L15.3 6.52L16.71 7.93L9.09 15.55Z"
+                                fill="#1D9BF0" />
+                        </svg>
+                    </span>
+                </div>
+                <div class="profile-role">Aspiring UI/UX Designer</div>
+                <div class="profile-loc">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                            fill="currentColor" opacity="0.5" />
+                    </svg>
+                    Zamboanga Del Sur, Philippines
+                </div>
+                <div class="tagline">
+                    Turning ideas into intuitive interfaces
+                </div>
+            </div>
+
+            <div class="card connect-card anim-card" style="--delay: 0.08s">
+                <div class="connect-label">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                        <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.8" />
+                        <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" />
+                        <path d="M16 11l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Connect With Me
+                </div>
+                <a href="https://www.instagram.com/admjlomr/" target="_blank" class="social-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8" />
+                        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.8" />
+                        <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" />
+                    </svg>
+                    Instagram
+                </a>
+                <a href="https://www.facebook.com/damnnn.21" target="_blank" class="social-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    Facebook
+                </a>
+            </div>
+
+            <a href="mailto:adamomar4566@gmail.com" class="card cta-btn anim-card" style="--delay: 0.16s">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M22 7l-10 7L2 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                Email Me
+            </a>
+
+        </div>
+
+        <!-- MIDDLE -->
+        <div class="mid-col">
+
+            <div class="card section-card anim-card" style="--delay: 0.1s">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.8" />
+                            <path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h2>Samples</h2>
+                </div>
+
+                <div class="sample project-sample" id="zppsuSample" onclick="openProjectModal()">
+                    <div class="thumb project-thumb">
+                        <img src="zppsu-thumb.png" alt="ZPPSU Portal" class="project-thumb-img">
+                        <div class="project-overlay">
+                            <div class="project-overlay-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round">
+                                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                                </svg>
+                            </div>
+                            <span class="project-overlay-text">View Project</span>
+                        </div>
+                        <div class="project-badge-pill">
+                            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                            </svg>
+                            Web App
+                        </div>
+                    </div>
+                    <div class="sample-title">ZPPSU Portal — Student Directory</div>
+                    <div class="sample-desc">A university student management system with CRUD operations, movie browser
+                        integration, and responsive dashboard UI.</div>
+                </div>
+            </div>
+
+            <div class="card section-card anim-card" style="--delay: 0.18s">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" stroke="currentColor"
+                                stroke-width="1.8" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h2>Skills</h2>
+                </div>
+                <div class="tags">
+                    <span class="tag gold">UI/UX Design</span>
+                    <span class="tag gold">Figma</span>
+                    <span class="tag">draw.io</span>
+                    <span class="tag">CapCut</span>
+                    <span class="tag">Alight Motion</span>
+                    <span class="tag">AI Prompt Engineering</span>
+                    <span class="tag">Responsive Web Design</span>
+                    <span class="tag">Wireframing</span>
+                    <span class="tag">Prototyping</span>
+                </div>
+            </div>
+
+            <div class="card section-card anim-card" style="--delay: 0.24s">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.8" />
+                            <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" opacity="0.6" />
+                            <path d="M21 15l-5-5L5 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h2>Album</h2>
+                </div>
+
+                <div class="album-grid" id="albumGrid">
+                </div>
+
+                <label class="album-upload-btn" for="albumUpload">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <path d="M12 5v14M5 12h14" />
+                    </svg>
+                    Upload Photo
+                </label>
+                <input type="file" id="albumUpload" accept="image/*" multiple hidden>
+            </div>
+
+            <!-- Album Lightbox Modal -->
+            <div class="album-modal-overlay" id="albumModal">
+                <div class="album-modal" onclick="event.stopPropagation()">
+                    <button class="album-modal-close" onclick="closeAlbumModal()" aria-label="Close">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round">
+                            <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <button class="album-nav album-nav-prev" onclick="albumNavigate(-1)" aria-label="Previous">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <button class="album-nav album-nav-next" onclick="albumNavigate(1)" aria-label="Next">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </button>
+                    <img class="album-modal-img" id="albumModalImg" src="" alt="Album Photo">
+                    <div class="album-modal-footer">
+                        <span class="album-modal-counter" id="albumCounter">1 / 4</span>
+                        <a class="album-modal-download" id="albumDownload" href="" download aria-label="Download photo">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round">
+                                <path d="M12 3v12M12 15l-4-4M12 15l4-4" />
+                                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+                            </svg>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="right-col">
+
+            <div class="card section-card anim-card" style="--delay: 0.14s">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.8" />
+                            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h2>Experience</h2>
+                </div>
+
+                <div class="timeline">
+
+                    <div class="tl-item">
+                        <div class="tl-track">
+                            <div class="tl-dot active"></div>
+                            <div class="tl-line"></div>
+                        </div>
+                        <div class="tl-body">
+                            <div class="tl-title">Web Designer &amp; UI/UX Developer</div>
+                            <div class="tl-meta">2026 – Present · Personal &amp; Academic Projects</div>
+                            <div class="tl-desc">Designing and developing websites for academic and personal
+                                projects.
+                                Focused on clean user interfaces, responsive layouts, and user-friendly
+                                navigation while
+                                applying modern UI/UX design principles.</div>
+                        </div>
+                    </div>
+
+                    <div class="tl-item">
+                        <div class="tl-track">
+                            <div class="tl-dot"></div>
+                            <div class="tl-line"></div>
+                        </div>
+                        <div class="tl-body">
+                            <div class="tl-title">OJT — Assessment Office</div>
+                            <div class="tl-meta">2024 · Zamboanga Peninsula Polytechnic State University</div>
+                            <div class="tl-desc">Completed on-the-job training assisting with administrative
+                                tasks,
+                                organizing documents, ·and supporting daily office operations while gaining
+                                experience
+                                in
+                                a professional workplace environment.</div>
+                        </div>
+                    </div>
+
+                    <div class="tl-item">
+                        <div class="tl-track">
+                            <div class="tl-dot"></div>
+                        </div>
+                        <div class="tl-body">
+                            <div class="tl-title">Teacher Assistant — Work Immersion</div>
+                            <div class="tl-meta">2023 Sta. Barbara Central School</div>
+                            <div class="tl-desc">Assisted teachers with classroom activities, student
+                                supervision, and
+                                preparation of learning materials during the work immersion program, helping
+                                support
+                                daily classroom operations.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card section-card anim-card" style="--delay: 0.22s">
+                <div class="section-header" style="margin-bottom:14px">
+                    <div class="section-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h2>At a Glance</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-val">7</div>
+                        <div class="stat-lbl">Months Designing</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val">#1</div>
+                        <div class="stat-lbl">Design Production</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val">3+</div>
+                        <div class="stat-lbl">Platforms</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val">∞</div>
+                        <div class="stat-lbl">Creative Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card anim-card" style="padding: 18px 20px; --delay: 0.28s">
+                <div class="avail-badge">
+                    <div class="avail-dot"></div>
+                    <div class="avail-text">Available for new projects</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        &copy; <span id="year">2026</span> Adam Omar. Crafted with care.
+    </footer>
+
+    <!-- Project Modal -->
+    <div class="project-modal-overlay" id="projectModal" onclick="closeProjectModal(event)">
+        <div class="project-modal" onclick="event.stopPropagation()">
+            <button class="modal-close" id="modalClose" onclick="closeProjectModal()" aria-label="Close modal">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div class="modal-gallery">
+                <div class="modal-gallery-track" id="galleryTrack">
+                    <div class="modal-slide active">
+                        <img src="zppsu-thumb.png" alt="ZPPSU Portal — Dashboard" loading="lazy">
+                    </div>
+                </div>
+                <div class="modal-gallery-label">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8M12 17v4" />
+                    </svg>
+                    Project Preview
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-header-row">
+                    <div class="modal-project-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="modal-title">ZPPSU Portal</h3>
+                        <p class="modal-subtitle">Student Directory System</p>
+                    </div>
+                </div>
+
+                <p class="modal-desc">
+                    A full-featured university student management portal built for Zamboanga Peninsula
+                    Polytechnic State
+                    University.
+                    Features include student record CRUD operations, real-time dashboard statistics, movie
+                    browser
+                    integration via TMDB API,
+                    and a responsive design with a warm maroon and cream color palette.
+                </p>
+
+                <div class="modal-section">
+                    <div class="modal-section-label">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round">
+                            <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" />
+                        </svg>
+                        Key Features
+                    </div>
+                    <ul class="modal-features">
+                        <li>
+                            <span class="feature-dot"></span>
+                            Add, edit, and delete student records
+                        </li>
+                        <li>
+                            <span class="feature-dot"></span>
+                            Dashboard with live statistics (total students, courses, year levels)
+                        </li>
+                        <li>
+                            <span class="feature-dot"></span>
+                            Movie Browser powered by TMDB API
+                        </li>
+                        <li>
+                            <span class="feature-dot"></span>
+                            Responsive design with maroon &amp; cream theme
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-label">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round">
+                            <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+                        </svg>
+                        Tech Stack
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">HTML</span>
+                        <span class="modal-tag">CSS</span>
+                        <span class="modal-tag">JavaScript</span>
+                        <span class="modal-tag accent">TMDB API</span>
+                        <span class="modal-tag">Responsive Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
