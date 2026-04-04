@@ -151,7 +151,7 @@ function authenticateOwner() {
 // ============================================
 // IMAGE COMPRESSION
 // ============================================
-function compressImage(file, maxWidth = 1200, quality = 0.75) {
+function compressImage(file, maxWidth = 600, quality = 0.5) {
     return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -167,7 +167,21 @@ function compressImage(file, maxWidth = 1200, quality = 0.75) {
                 canvas.height = h;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, w, h);
-                resolve(canvas.toDataURL('image/jpeg', quality));
+                
+                // Try compressing, reduce quality further if still too large
+                let result = canvas.toDataURL('image/jpeg', quality);
+                if (result.length > 700000) {
+                    result = canvas.toDataURL('image/jpeg', 0.3);
+                }
+                if (result.length > 700000) {
+                    // Last resort: shrink dimensions by half
+                    canvas.width = w / 2;
+                    canvas.height = h / 2;
+                    ctx.drawImage(img, 0, 0, w / 2, h / 2);
+                    result = canvas.toDataURL('image/jpeg', 0.3);
+                }
+                console.log('Compressed image size:', Math.round(result.length / 1024) + 'KB');
+                resolve(result);
             };
             img.src = e.target.result;
         };
@@ -184,39 +198,49 @@ async function loadAlbumFromFirebase() {
 
     // Show loading state
     grid.innerHTML = '<div class="album-loading">Loading photos...</div>';
+    console.log('[Album] Starting to load photos from Firestore...');
 
     try {
-        let snapshot;
-        try {
-            // Try with ordering first
-            snapshot = await db.collection(ALBUM_COLLECTION)
-                .orderBy('timestamp', 'desc')
-                .get();
-        } catch (indexError) {
-            // Fallback: query without ordering if index isn't ready
-            console.warn('Firestore index not ready, fetching without order:', indexError.message);
-            snapshot = await db.collection(ALBUM_COLLECTION).get();
-        }
+        const snapshot = await db.collection(ALBUM_COLLECTION).get();
+        console.log('[Album] Firestore responded. Documents found:', snapshot.size);
 
         grid.innerHTML = '';
 
         if (snapshot.empty) {
+            console.log('[Album] No photos in Firestore collection.');
             return;
         }
 
+        // Sort by timestamp client-side
+        const docs = [];
         snapshot.forEach(doc => {
             const data = doc.data();
-            createAlbumItem(data.imageData, doc.id);
+            console.log('[Album] Doc:', doc.id, '| Has imageData:', !!data.imageData, '| Size:', data.imageData ? Math.round(data.imageData.length / 1024) + 'KB' : 'N/A');
+            docs.push({ id: doc.id, data });
         });
+        docs.sort((a, b) => {
+            const ta = a.data.timestamp?.toMillis?.() || 0;
+            const tb = b.data.timestamp?.toMillis?.() || 0;
+            return tb - ta;
+        });
+
+        docs.forEach(doc => {
+            if (doc.data.imageData) {
+                createAlbumItem(doc.data.imageData, doc.id);
+            }
+        });
+        console.log('[Album] Loaded', docs.length, 'photos successfully.');
     } catch (error) {
-        console.error('Error loading album:', error);
-        grid.innerHTML = '';
+        console.error('[Album] ERROR loading:', error.code, error.message);
+        grid.innerHTML = '<div class="album-loading">Failed to load photos</div>';
     }
 }
 
 async function uploadToFirebase(file) {
     try {
+        console.log('[Album] Compressing', file.name, '(', Math.round(file.size / 1024), 'KB original)');
         const compressed = await compressImage(file);
+        console.log('[Album] Compressed to', Math.round(compressed.length / 1024), 'KB');
 
         // Show uploading state
         const grid = document.getElementById('albumGrid');
@@ -225,20 +249,21 @@ async function uploadToFirebase(file) {
         placeholder.innerHTML = '<div class="album-upload-spinner"></div>';
         if (grid) grid.prepend(placeholder);
 
+        console.log('[Album] Saving to Firestore...');
         const docRef = await db.collection(ALBUM_COLLECTION).add({
             imageData: compressed,
             filename: file.name,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
+        console.log('[Album] ✅ Saved! Doc ID:', docRef.id);
 
         // Replace placeholder with actual image
         if (placeholder.parentNode) placeholder.remove();
         createAlbumItem(compressed, docRef.id, true);
 
     } catch (error) {
-        console.error('Error uploading photo:', error);
-        alert('Failed to upload photo. Please try again.');
-        // Remove placeholder on error
+        console.error('[Album] ❌ Upload FAILED:', error.code, error.message);
+        alert('Upload failed: ' + error.message);
         const uploading = document.querySelector('.album-uploading');
         if (uploading) uploading.remove();
     }
