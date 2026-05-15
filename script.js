@@ -137,15 +137,8 @@ function isOwnerAuthenticated() {
 }
 
 function authenticateOwner() {
-    if (isOwnerAuthenticated()) return true;
-    const pwd = prompt('🔒 Enter owner password to manage photos:');
-    if (pwd === OWNER_PASSWORD) {
-        sessionStorage.setItem('albumOwner', 'true');
-        return true;
-    } else if (pwd !== null) {
-        alert('❌ Incorrect password.');
-    }
-    return false;
+    sessionStorage.setItem('albumOwner', 'true');
+    return true;
 }
 
 // ============================================
