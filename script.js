@@ -11,45 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // --- Dark Mode Toggle ---
-    const toggle = document.getElementById('themeToggle');
-    const sunIcon = toggle?.querySelector('.sun-icon');
-    const moonIcon = toggle?.querySelector('.moon-icon');
-    const root = document.documentElement;
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
 
-    function setTheme(dark) {
-        root.classList.toggle('dark', dark);
-        if (sunIcon && moonIcon) {
-            sunIcon.style.display = dark ? 'none' : '';
-            moonIcon.style.display = dark ? '' : 'none';
-        }
-        if (metaTheme) {
-            metaTheme.content = dark ? '#121212' : '#EDEAE4';
-        }
-        localStorage.setItem('theme', dark ? 'dark' : 'light');
-    }
-
-    // Check saved preference or system preference
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-        setTheme(saved === 'dark');
-    } else {
-        setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }
-
-    if (toggle) {
-        toggle.addEventListener('click', () => {
-            setTheme(!root.classList.contains('dark'));
-        });
-    }
-
-    // Listen for system preference changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            setTheme(e.matches);
-        }
-    });
 
     // --- Scroll-Triggered Reveal Animations ---
     const cards = document.querySelectorAll('.anim-card');
@@ -408,3 +370,123 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// ============================================
+// AI CHAT BOX (Groq Integration)
+// ============================================
+const GROQ_API_KEY = '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'; // Replace this with your actual key
+const chatToggle = document.getElementById('toggleChat');
+const chatContainer = document.getElementById('chatContainer');
+const closeChat = document.getElementById('closeChat');
+const chatInput = document.getElementById('chatInput');
+const sendChat = document.getElementById('sendChat');
+const chatMessages = document.getElementById('chatMessages');
+
+let chatHistory = [
+    { role: "system", content: "You are a helpful AI assistant for Adam Omar's portfolio website. Adam is an Aspiring UI/UX Designer from Zamboanga Del Sur, Philippines. Keep your answers concise, friendly, and relevant to design, his portfolio, or general tech." }
+];
+
+if (chatToggle && chatContainer && closeChat) {
+    chatToggle.addEventListener('click', () => {
+        chatContainer.classList.add('active');
+        chatInput.focus();
+    });
+
+    closeChat.addEventListener('click', () => {
+        chatContainer.classList.remove('active');
+    });
+}
+
+function appendChatMessage(content, sender) {
+    const div = document.createElement('div');
+    div.classList.add('message', sender === 'user' ? 'user-message' : 'ai-message');
+    div.textContent = content;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTypingIndicator() {
+    const div = document.createElement('div');
+    div.classList.add('message', 'ai-message', 'typing-indicator-container');
+    div.id = 'typingIndicator';
+    div.innerHTML = `
+        <div class="typing-indicator">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+    `;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const indicator = document.getElementById('typingIndicator');
+    if (indicator) indicator.remove();
+}
+
+async function handleSendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    // Append user message
+    appendChatMessage(text, 'user');
+    chatInput.value = '';
+    sendChat.disabled = true;
+
+    // Add to history
+    chatHistory.push({ role: "user", content: text });
+
+    // Show typing
+    showTypingIndicator();
+
+    try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${GROQ_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: 'llama-3.1-8b-instant',
+                messages: chatHistory,
+                temperature: 0.7,
+                max_tokens: 500
+            })
+        });
+
+        if (!response.ok) {
+            let errStr = `API Error: ${response.status}`;
+            try {
+                const errData = await response.json();
+                errStr = errData.error?.message || JSON.stringify(errData);
+            } catch(e) {}
+            throw new Error(errStr);
+        }
+
+        const data = await response.json();
+        const aiResponse = data.choices[0].message.content;
+
+        removeTypingIndicator();
+        appendChatMessage(aiResponse, 'ai');
+        chatHistory.push({ role: "assistant", content: aiResponse });
+
+    } catch (error) {
+        console.error('Chat Error:', error);
+        removeTypingIndicator();
+        if (GROQ_API_KEY === 'YOUR_GROQ_API_KEY_HERE') {
+            appendChatMessage("⚠️ Please add your Groq API key in script.js to enable the chat.", 'ai');
+        } else {
+            appendChatMessage("Error connecting: " + error.message, 'ai');
+        }
+    } finally {
+        sendChat.disabled = false;
+        chatInput.focus();
+    }
+}
+
+if (sendChat && chatInput) {
+    sendChat.addEventListener('click', handleSendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSendMessage();
+    });
+}
